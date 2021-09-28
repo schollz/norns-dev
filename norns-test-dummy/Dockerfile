@@ -61,22 +61,12 @@ RUN mkdir -p /home/we/.local/share/SuperCollider/Extensions/norns && \
 RUN /home/we/maiden/project-setup.sh && \
     mkdir -p dust/code && \
     cd dust/code && \
-    # TODO: More scripts - which ones??
-    git clone https://github.com/tehn/awake.git && \
-    git clone https://github.com/p3r7/3d.git && \
-    git clone https://github.com/northern-information/dronecaster.git && \
-    git clone https://github.com/justmat/showers.git && \
-    git clone https://github.com/distropolis/pixels.git && \
-    git clone https://github.com/ambalek/raindrops.git && \
-    git clone https://github.com/tomwaters/spirals.git && \
-    git clone https://github.com/tomwaters/breakthrough.git && \
-    git clone https://github.com/jaseknighter/flora.git && \
-    git clone https://github.com/synthetiv/euclidigons.git && \
-    git clone https://github.com/JakeCarter/circles.git
+    git clone https://github.com/tehn/awake.git 
 
 COPY ["jackdrc", "/etc/jackdrc"]
 COPY ["norns.yaml", "/home/we/.tmuxp/norns.yaml"]
 COPY ["tmux.conf", "/home/we/.tmux.conf"]
 COPY ["oled-server.go", "/home/we/oled-server.go"]
+COPY ["static", "/home/we/static"]
 
 CMD tmuxp load norns
