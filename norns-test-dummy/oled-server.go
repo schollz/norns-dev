@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"context"
 	"flag"
@@ -87,6 +88,7 @@ type Message struct {
 	N    int    `json:"n"`
 	Z    int    `json:"z"`
 	Fast bool   `json:"fast"`
+	Img  []byte `json:"img"`
 }
 
 func handleWebsocket(w http.ResponseWriter, r *http.Request) (err error) {
@@ -114,6 +116,15 @@ func handleWebsocket(w http.ResponseWriter, r *http.Request) (err error) {
 			msg.Append(int32(p.N))
 			msg.Append(int32(p.Z))
 			oscClient.Send(msg)
+		} else if p.Kind == "img" {
+			go func() {
+				time.Sleep(25 * time.Millisecond)
+				var b bytes.Buffer
+				displayToPNG(context.Background(), windowName, windowID, bufio.NewWriter(&b))
+				c.WriteJSON(Message{
+					Img: b.Bytes(),
+				})
+			}()
 		}
 	}
 	return

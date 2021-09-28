@@ -483,11 +483,17 @@ input[type=range]:focus::-ms-fill-upper {
             document.getElementById('img').setAttribute(
                 'src',
                 'data:image/png;base64,' + data['img']
-            )
+            );
+            socket.send(JSON.stringify({
+                kind: "img",
+            }));
         }
     };
     const socketOpenListener = (e) => {
         console.log('Connected');
+        socket.send(JSON.stringify({
+            kind: "img",
+        }));
     };
     const socketErrorListener = (e) => {
         console.error(e);
@@ -505,9 +511,9 @@ input[type=range]:focus::-ms-fill-upper {
     };
     window.addEventListener('load', (event) => {
         socketCloseListener();
-        setInterval(function() {
-            document.getElementById('img').src = '/screen.png?rand=' + Math.random();
-        },1000);
+        // setInterval(function() {
+        //     document.getElementById('img').src = '/screen.png?rand=' + Math.random();
+        // },1000);
     });
     </script>
 </body>

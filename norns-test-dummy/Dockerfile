@@ -67,6 +67,8 @@ COPY ["jackdrc", "/etc/jackdrc"]
 COPY ["norns.yaml", "/home/we/.tmuxp/norns.yaml"]
 COPY ["tmux.conf", "/home/we/.tmux.conf"]
 COPY ["oled-server.go", "/home/we/oled-server.go"]
+COPY ["go.mod", "/home/we/go.mod"]
+COPY ["go.sum", "/home/we/go.sum"]
 COPY ["static", "/home/we/static"]
 
 CMD tmuxp load norns
