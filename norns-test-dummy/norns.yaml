@@ -16,10 +16,10 @@ windows:
           # Connect vnc server to the display
           - export DISPLAY=:0
           - x11vnc -forever
-      - shell_command:
-          - export JACK_NO_START_SERVER=1
-          - export JACK_NO_AUDIO_RESERVATION=1
-          - $(cat /etc/jackdrc)
+      # - shell_command:
+      #     - export JACK_NO_START_SERVER=1
+      #     - export JACK_NO_AUDIO_RESERVATION=1
+      #     - $(cat /etc/jackdrc)
       - shell_command:
           - cd /home/we/norns
           - sleep 2

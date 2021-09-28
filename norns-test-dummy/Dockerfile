@@ -27,9 +27,9 @@ RUN apt-get update -q && \
             xvfb \
             # display server
             x11-apps \
-            imagemagick \
-            icecast2 \
-            darkice && \
+            imagemagick && \
+#            icecast2 \
+#            darkice && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     pip3 install tmuxp==1.4.0
@@ -75,7 +75,5 @@ COPY ["static", "/home/we/static"]
 
 COPY icecast.xml /etc/icecast2/icecast.xml
 COPY darkice.cfg /etc/darkice.cfg
-COPY darkice.sh /etc/darkice.sh
-COPY icecast.sh /etc/icecast.sh
 
 CMD tmuxp load norns
