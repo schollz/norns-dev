@@ -27,12 +27,15 @@ RUN apt-get update -q && \
             xvfb \
             # display server
             x11-apps \
-            imagemagick && \
-#            icecast2 \
-#            darkice && \
+            imagemagick \
+            icecast2 \
+            darkice && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     pip3 install tmuxp==1.4.0
+
+# darkice installs libjack-jackd2-0, we need to remove it
+RUN dpkg --remove --force-depends libjack-jackd2-0
 
 USER we
 WORKDIR /home/we

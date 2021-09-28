@@ -16,10 +16,11 @@ windows:
           # Connect vnc server to the display
           - export DISPLAY=:0
           - x11vnc -forever
-      # - shell_command:
-      #     - export JACK_NO_START_SERVER=1
-      #     - export JACK_NO_AUDIO_RESERVATION=1
-      #     - $(cat /etc/jackdrc)
+      - shell_command:
+          - export JACK_NO_START_SERVER=1
+          - export JACK_NO_AUDIO_RESERVATION=1
+          - jackd -V
+          - $(cat /etc/jackdrc)
       - shell_command:
           - cd /home/we/norns
           - sleep 2
@@ -33,9 +34,10 @@ windows:
           - sleep 1
           - icecast2 -c /etc/icecast2/icecast.xml &
           - sleep 2
+          - darkice -c /etc/darkice.cfg &
+          - sleep 2
           - jack_connect crone:output_1 darkice:left
           - jack_connect crone:output_2 darkice:right
-          - darkice -c /etc/darkice.cfg
       - shell_command:
           - cd /home/we/maiden
           - sleep 6
