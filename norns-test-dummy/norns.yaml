@@ -30,6 +30,13 @@ windows:
           - cd /home/we/norns
           - ./matron.sh
       - shell_command:
+          - sleep 1
+          - icecast2 -c /etc/icecast2/icecast.xml &
+          - sleep 2
+          - jack_connect crone:output_1 darkice:left
+          - jack_connect crone:output_2 darkice:right
+          - darkice -c /etc/darkice.cfg
+      - shell_command:
           - cd /home/we/maiden
           - sleep 6
           # The following command is from ~/maiden/start.sh
