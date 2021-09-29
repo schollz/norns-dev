@@ -68,6 +68,14 @@ RUN /home/we/maiden/project-setup.sh && \
     cd dust/code && \
     git clone https://github.com/tehn/awake.git && \
     git clone https://github.com/jaseknighter/flora.git  && \
+    git clone https://github.com/synthetiv/euclidigons.git && \
+    git clone https://github.com/justmat/showers.git && \
+    git clone https://github.com/distropolis/pixels.git && \
+    git clone https://github.com/ambalek/fall.git && \
+    git clone https://github.com/ambalek/raindrops.git && \
+    git clone https://github.com/tomwaters/spirals.git && \
+    git clone https://github.com/tomwaters/breakthrough.git && \
+    git clone https://github.com/northern-information/dronecaster.git  && \
     git clone https://github.com/schollz/o-o-o.git
 
 RUN cd /tmp && \
