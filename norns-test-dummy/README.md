@@ -137,16 +137,15 @@ I recommend running the `tehn/earthsea.lua` script to test the grid functionalit
 
 ## Norns in the cloud instructions
 
+### Get a server
+
+Get a Docker droplet or similar and [install Docker](https://docs.docker.com/engine/install/ubuntu/).
+
 ### Get a domain name
 
 Free domain names are at [duckdns](http://www.duckdns.org/).
 
-I'll assume your domain name is `yourwebsite.com`.
-
-
-### Get a server
-
-Get a Docker droplet or similar and [install Docker](https://docs.docker.com/engine/install/ubuntu/).
+I'll assume your domain name is `yourwebsite.com`. Make sure to point the domain name to your server address.
 
 
 ### Setup reverse proxy
@@ -156,10 +155,10 @@ sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo tee /etc/apt/trusted.gpg.d/caddy-stable.asc
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
 sudo apt update
-sudo apt install caddy
+sudo apt install -y caddy
 ```
 
-And then copy the following to `/etc/caddy/Caddyfile`:
+And then copy the following to `/etc/caddy/Caddyfile`, making sure to change `yourwebsite.com` to your website:
 
 ```Caddyfile
 yourwebsite.com {
@@ -175,12 +174,18 @@ yourwebsite.com {
 }
 ```
 
+Then restart caddy:
+
+```
+systemctl restart caddy
+```
+
 ### Setup and run norns
 
 First make the base image (takes awhile):
 
 ```
-sudo apt install make
+sudo apt install -y make
 git clone https://github.com/schollz/norns-dev
 cd ~/norns-dev/norns-dev
 make build
