@@ -14,8 +14,13 @@
 
 .norns {
     background-color: #b2b0a3;
-    width: 95%;
-    padding-top: 70%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 65%;
+    max-height: 200px !important;
+    padding-top: 60%;
     border-radius: 2%;
     -webkit-box-shadow: #59574c 10px 10px 0.2px 10px;
     -moz-box-shadow: #59574c 10px 10px 0.2px 10px;
@@ -48,11 +53,11 @@ body {
 
 .nornsimage {
     position: absolute;
-    left: 10%;
-    top: 52%;
-    background-color: #000;
-    width: 40%;
-    height: 30%;
+    left: 4.5%;
+    top: 25%;
+    background-color: #131313;
+    width: 90%;
+    height: 50%;
     padding: 1%;
     border-radius: 2%;
     border-color: #222222;
@@ -63,28 +68,51 @@ body {
 
 .k0 {
     position: absolute;
-    left: 8%;
-    top: 32%;
-    min-height: 8%;
-    min-width: 6%;
+    left: 58%;
+    top: 7%;
+    min-height: 12%;
+    min-width: 11%;
 }
 
 .k1 {
     position: absolute;
-    left: 58%;
-    top: 70%;
-    min-height: 8%;
-    min-width: 6%;
+    left: 8%;
+    top: 83%;
+    min-height: 12%;
+    min-width: 11%;
 }
 
 .k2 {
     position: absolute;
-    left: 75%;
-    top: 70%;
-    min-height: 8%;
-    min-width: 6%;
+    left: 26%;
+    top: 83%;
+    min-height: 12%;
+    min-width: 11%;
 }
 
+.enc1knob {
+    position: absolute;
+    left: 78%;
+    top: 5%;
+    width: 10%;
+    height: 15.5%;
+}
+
+.enc2knob {
+    position: absolute;
+    left: 55%;
+    top: 81%;
+    width: 10%;
+    height: 15.5%;
+}
+
+.enc3knob {
+    position: absolute;
+    left: 78%;
+    top: 81%;
+    width: 10%;
+    height: 15.5%;
+}
 .button {
     width: 5%;
     height: 10%;
@@ -116,7 +144,7 @@ body {
 }
 
 .knobshadow {
-    width: 10%;
+    width: 15%;
     background-color: #9a9f9b;
     border-radius: 50%;
     border-right: 2px solid #222222;
@@ -132,29 +160,6 @@ a:hover {
     color: 9a9f9b;
 }
 
-.enc1knob {
-    position: absolute;
-    left: 18%;
-    top: 28%;
-    width: 8%;
-    height: 11%;
-}
-
-.enc2knob {
-    position: absolute;
-    left: 64%;
-    top: 52%;
-    width: 8%;
-    height: 11%;
-}
-
-.enc3knob {
-    position: absolute;
-    left: 81%;
-    top: 52%;
-    width: 8%;
-    height: 11%;
-}
 
 .center {
     position: relative;
@@ -276,28 +281,49 @@ canvas {
     left:  -5%;
 }
 
+audio {
+position: fixed;
+top: -12%;    
+width: 50%;
+border-radius: 30px;
+}
+
+img {
+    position: relative;
+top: 1%;
+left: 1%;
+width: 98%;
+height: 98%;
+filter: brightness(2) contrast(0.90) grayscale(100%) saturate(200%); 
+image-rendering: pixelated;
+image-rendering: -moz-crisp-edges;
+image-rendering: crisp-edges;
+}
+
+
+
     </style>
 </head>
 
 <body>
     <div class="center">
         <div class="norns">
+            <audio controls>
+                <source src="/radio.mp3" type="audio/mpeg" autoplay>Your browser does not support the audio tag.</audio>
             <div class="nornsimage">
-                <img id="img" src="/static/img/offline.png" style="filter: brightness(2);   image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;" width=98% height=98%>
+                <img id="img" src="/static/img/test1.png">
             </div>
             <button class="button k0" id="k0"></button>
             <button class="button k1" id="k1"></button>
             <button class="button k2" id="k2"></button>
-            <div class="enc1knob knobshadow">
-                <input type="text" value="75" class="enc0" data-width="100" data-displayInput=false data-cursor=true data-fgColor="#fff" data-bgColor="#222222" data-thickness=1 data-curosr=1>
+            <div class="enc1knob knobshadow" width=300px>
+                <input type="text" value="75" class="enc0" data-displayInput=false data-cursor=true data-fgColor="#fff" data-bgColor="#222222" data-thickness=1 data-cursor=1 data-width="100%" width=300px>
             </div>
             <div class="enc2knob knobshadow">
-                <input type="text" value="75" class="enc1" data-width="100" data-displayInput=false data-cursor=true data-fgColor="#fff" data-bgColor="#222222" data-thickness=1 data-curosr=1>
+                <input type="text" value="75" class="enc1" data-displayInput=false data-cursor=true data-fgColor="#fff" data-bgColor="#222222" data-thickness=1 data-cursor=1 data-width="100%">
             </div>
-            <div class="enc3knob knobshadow">
-                <input type="text" value="75" class="enc2" data-width="10%" data-displayInput=false data-cursor=true data-fgColor="#fff" data-bgColor="#222222" data-thickness=1 data-curosr=1>
+            <div class="enc3knob knobshadow knob">
+                <input type="text" value="75" class="enc2" data-displayInput=false data-cursor=true data-fgColor="#fff" data-bgColor="#222222" data-thickness=1 data-cursor=1 data-width="100%">
             </div>
         </div>
     </div>
@@ -370,31 +396,27 @@ canvas {
         let consecutive_turns = 0;
         return {
             change: function(v) {
-                dif = 0;
-                dif = (v - value);
-                //  console.log(`v: ${v}, value: ${value}, dif: ${dif}`);
-                value = v;
-                if (Math.abs(dif) > 10) {
-                    return;
-                }
-                if (currentTime() - last_time < 350 || Math.abs(consecutive_turns) < 4) {
-                    consecutive_turns = consecutive_turns + dif;
+                if (currentTime() - last_time < 50) {
+                    // last_time = currentTime()
                     return
                 }
-                //console.log(consecutive_turns);
+                dif = (v - value);
+                value = v;
+                console.log(`v: ${v}, value: ${value}, dif: ${dif}`);
+                if (Math.abs(dif) > 50 || Math.abs(dif) < 0.05) {
+                    // last_time = currentTime()
+                    return
+                }
+                last_time = currentTime()
+
                 var multiplier = 1;
-                if (Math.abs(consecutive_turns) > 25) {
+                if (Math.abs(dif) > 5) {
                     multiplier = 3;
-                } else if (Math.abs(consecutive_turns) > 15) {
+                } else if (Math.abs(dif) > 3) {
                     multiplier = 2;
                 }
-                if (consecutive_turns < 0) {
-                    multiplier = multiplier * -1;
-                }
-                consecutive_turns = 0;
-
-                last_time = currentTime()
-                z = 1 * multiplier;
+                z = Math.sign(dif) * multiplier;
+                console.log(z);
                 if (socket != null) {
                     socket.send(JSON.stringify({
                         kind: "enc",
@@ -462,11 +484,12 @@ canvas {
     });
 
     for (var i = 0; i < 3; i++) {
+        var knobWidthHeight = Math.round((window.innerWidth) * 0.1);
+        console.log(knobWidthHeight)
         $(`.enc${i}`).knob({
             'change': encs[i].change,
-            'width': 80,
-            'height': 80,
         });
+
         if (i == 0) {
             document.getElementById("k" + i).addEventListener("click", keys[i].change);
             //     document.getElementById("k" + i).addEventListener("mouseleave", keys[i].reset);

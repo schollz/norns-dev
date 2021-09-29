@@ -134,3 +134,19 @@ docker run --rm -it \
 I recommend running the `tehn/earthsea.lua` script to test the grid functionality.
 
 [`tmux`]: https://github.com/tmux/tmux
+
+## Reverse proxy from public internet
+
+```Caddyfile
+play.norns.online {
+        reverse_proxy localhost:8889
+        reverse_proxy /radio.mp3 localhost:8000
+        reverse_proxy /maiden/* localhost:5000
+        reverse_proxy /api/* localhost:5000
+        handle_path /matron {
+                rewrite * /
+                reverse_proxy localhost:5555
+        }
+        reverse_proxy /supercollider localhost:5556
+}
+```
