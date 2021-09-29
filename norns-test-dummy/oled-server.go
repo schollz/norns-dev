@@ -128,6 +128,7 @@ func handleWebsocket(w http.ResponseWriter, r *http.Request) (err error) {
 				c.WriteJSON(Message{
 					Img: b.Bytes(),
 				})
+				gettingImage = false
 			}()
 		}
 	}
