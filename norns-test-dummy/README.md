@@ -187,6 +187,8 @@ First make the base image (takes awhile):
 ```
 sudo apt install -y make
 git clone https://github.com/schollz/norns-dev
+cd ~/norns-dev
+git checkout play
 cd ~/norns-dev/norns-dev
 make build
 ```
