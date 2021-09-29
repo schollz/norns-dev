@@ -67,6 +67,8 @@ RUN /home/we/maiden/project-setup.sh && \
     mkdir -p dust/code && \
     cd dust/code && \
     git clone https://github.com/tehn/awake.git 
+    git clone https://github.com/jaseknighter/flora.git
+    git clone https://github.com/schollz/o-o-o.git
 
 COPY ["jackdrc", "/etc/jackdrc"]
 COPY ["norns.yaml", "/home/we/.tmuxp/norns.yaml"]
