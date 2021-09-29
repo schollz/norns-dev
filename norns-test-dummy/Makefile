@@ -3,7 +3,7 @@
 build:
 	docker build -t samdoshi/norns-test-dummy .
 
-run:
+run: dust
 	docker run --rm -it \
 		--cap-add=SYS_NICE \
 		--cap-add=SYS_PTRACE --security-opt seccomp=unconfined \
@@ -14,11 +14,40 @@ run:
 		-p 5900:5900 \
 		-p 8889:8889 \
 		-p 8000:8000 \
+		-v `pwd`/dust:/home/we/dust \
 		-p 10111:10111/udp \
 		--name norns-test-dummy \
 		samdoshi/norns-test-dummy
 
-pub:
+dust:
+	mkdir -p dust && \
+	mkdir -p dust/data && \
+	mkdir -p dust/audio && \
+	mkdir -p dust/audio/tape && \
+	mkdir -p dust/code && \
+	cd dust/code && \
+	git clone https://github.com/tehn/awake.git && \
+    git clone https://github.com/jaseknighter/flora.git  && \
+    git clone https://github.com/synthetiv/euclidigons.git && \
+    git clone https://github.com/justmat/showers.git && \
+    git clone https://github.com/distropolis/pixels.git && \
+    git clone https://github.com/ambalek/fall.git && \
+    git clone https://github.com/ambalek/raindrops.git && \
+    git clone https://github.com/tomwaters/spirals.git && \
+    git clone https://github.com/tomwaters/breakthrough.git && \
+    git clone https://github.com/northern-information/dronecaster.git  && \
+    git clone https://github.com/schollz/o-o-o.git
+	rm -rf lua-cjson
+	git clone --depth 1 https://github.com/mpx/lua-cjson.git
+	cd lua-cjson && cc -c -O3 -Wall -pedantic -DNDEBUG  -I/usr/include/lua5.3 -fpic -o lua_cjson.o lua_cjson.c
+	cd lua-cjson && cc -c -O3 -Wall -pedantic -DNDEBUG  -I/usr/include/lua5.3 -fpic -o strbuf.o strbuf.c
+	cd lua-cjson && cc -c -O3 -Wall -pedantic -DNDEBUG  -I/usr/include/lua5.3 -fpic -o fpconv.o fpconv.c
+	cd lua-cjson && cc  -shared -o cjson.so lua_cjson.o strbuf.o fpconv.o
+	mv lua-cjson/cjson.so dust/code/o-o-o/lib/
+	rm -rf lua-cjson
+
+
+pub: dust
 	docker run -d --rm -it \
 		--cap-add=SYS_NICE \
 		--cap-add=SYS_PTRACE --security-opt seccomp=unconfined \
@@ -28,6 +57,7 @@ pub:
 		-p 5556:5556 \
 		-p 8889:8889 \
 		-p 8000:8000 \
+		-v `pwd`/dust:/home/we/dust \
 		--name norns-test-dummy \
 		samdoshi/norns-test-dummy
 

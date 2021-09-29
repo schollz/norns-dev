@@ -63,29 +63,8 @@ RUN mkdir -p /home/we/.local/share/SuperCollider/Extensions/norns && \
     echo | sclang
 
 # DUST - maiden data directory.
-RUN /home/we/maiden/project-setup.sh && \
-    mkdir -p dust/code && \
-    cd dust/code && \
-    git clone https://github.com/tehn/awake.git && \
-    git clone https://github.com/jaseknighter/flora.git  && \
-    git clone https://github.com/synthetiv/euclidigons.git && \
-    git clone https://github.com/justmat/showers.git && \
-    git clone https://github.com/distropolis/pixels.git && \
-    git clone https://github.com/ambalek/fall.git && \
-    git clone https://github.com/ambalek/raindrops.git && \
-    git clone https://github.com/tomwaters/spirals.git && \
-    git clone https://github.com/tomwaters/breakthrough.git && \
-    git clone https://github.com/northern-information/dronecaster.git  && \
-    git clone https://github.com/schollz/o-o-o.git
-
-RUN cd /tmp && \
-    git clone --depth 1 https://github.com/mpx/lua-cjson.git && \
-    cd lua-cjson && \
-    cc -c -O3 -Wall -pedantic -DNDEBUG  -I/usr/include/lua5.3 -fpic -o lua_cjson.o lua_cjson.c && \
-    cc -c -O3 -Wall -pedantic -DNDEBUG  -I/usr/include/lua5.3 -fpic -o strbuf.o strbuf.c && \
-    cc -c -O3 -Wall -pedantic -DNDEBUG  -I/usr/include/lua5.3 -fpic -o fpconv.o fpconv.c && \
-    cc  -shared -o cjson.so lua_cjson.o strbuf.o fpconv.o && \
-    mv cjson.so /home/we/dust/code/o-o-o/lib/cjson.so
+#RUN /home/we/maiden/project-setup.sh
+RUN sed -i 's/norns.disk/100000/g' /home/we/norns/lua/core/menu/tape.lua
 
 COPY ["jackdrc", "/etc/jackdrc"]
 COPY ["norns.yaml", "/home/we/.tmuxp/norns.yaml"]

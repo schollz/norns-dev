@@ -105,13 +105,14 @@ func handleWebsocket(w http.ResponseWriter, r *http.Request) (err error) {
 			log.Debug("read:", err)
 			break
 		}
-		log.Debugf("recv: %v", p)
 		if p.Kind == "key" {
+			log.Debugf("recv: %v", p)
 			msg := osc.NewMessage("/remote/key")
 			msg.Append(int32(p.N))
 			msg.Append(int32(p.Z))
 			oscClient.Send(msg)
 		} else if p.Kind == "enc" {
+			log.Debugf("recv: %v", p)
 			msg := osc.NewMessage("/remote/enc")
 			msg.Append(int32(p.N))
 			msg.Append(int32(p.Z))
