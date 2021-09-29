@@ -201,10 +201,17 @@ cd ~/norns-dev/norns-test-dummy
 
 Edit the `repl-endpoints.json` and change `play.norns.online` to your domain name `yourwebsite.com`.
 
+Now make a user to share the directory:
+
+```
+adduser we
+```
+
 Now build and run (first time takes awhile):
 
 ```
 make build
+sudo chown -R we:we dust
 make pub # or `make run` for terminals
 ```
 
