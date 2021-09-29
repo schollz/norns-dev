@@ -65,6 +65,7 @@ RUN mkdir -p /home/we/.local/share/SuperCollider/Extensions/norns && \
 # DUST - maiden data directory.
 #RUN /home/we/maiden/project-setup.sh
 RUN sed -i 's/norns.disk/100000/g' /home/we/norns/lua/core/menu/tape.lua
+RUN sed -i 's/screensaver.time = 900/screensaver.time = 90000000/g' /home/we/norns/lua/core/screen.lua
 
 COPY ["jackdrc", "/etc/jackdrc"]
 COPY ["norns.yaml", "/home/we/.tmuxp/norns.yaml"]

@@ -3,6 +3,9 @@
 build:
 	docker build -t samdoshi/norns-test-dummy .
 
+build2:
+	docker build -t schollz/norns:dust .
+
 run: dust
 	docker run --rm -it \
 		--cap-add=SYS_NICE \
