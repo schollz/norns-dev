@@ -164,13 +164,14 @@ And then copy the following to `/etc/caddy/Caddyfile`, making sure to change `yo
 yourwebsite.com {
         reverse_proxy localhost:8889
         reverse_proxy /radio.mp3 localhost:8000
-        reverse_proxy /maiden/* localhost:5000
-        reverse_proxy /api/* localhost:5000
-        handle_path /matron {
-                rewrite * /
-                reverse_proxy localhost:5555
-        }
-        reverse_proxy /supercollider localhost:5556
+        # do not uncomment unless you understand the security risks
+        #reverse_proxy /maiden/* localhost:5000
+        #reverse_proxy /api/* localhost:5000
+        #handle_path /matron {
+        #        rewrite * /
+        #        reverse_proxy localhost:5555
+        #}
+        #reverse_proxy /supercollider localhost:5556
 }
 ```
 
