@@ -232,6 +232,7 @@ Now build and run (first time takes awhile):
 
 ```
 make build
+make dust
 sudo chown -R we:we dust
 make pub # or `make run` for terminals
 ```
