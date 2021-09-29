@@ -70,6 +70,15 @@ RUN /home/we/maiden/project-setup.sh && \
     git clone https://github.com/jaseknighter/flora.git  && \
     git clone https://github.com/schollz/o-o-o.git
 
+RUN cd /tmp && \
+    git clone --depth 1 https://github.com/mpx/lua-cjson.git && \
+    cd lua-cjson && \
+    cc -c -O3 -Wall -pedantic -DNDEBUG  -I/usr/include/lua5.3 -fpic -o lua_cjson.o lua_cjson.c && \
+    cc -c -O3 -Wall -pedantic -DNDEBUG  -I/usr/include/lua5.3 -fpic -o strbuf.o strbuf.c && \
+    cc -c -O3 -Wall -pedantic -DNDEBUG  -I/usr/include/lua5.3 -fpic -o fpconv.o fpconv.c && \
+    cc  -shared -o cjson.so lua_cjson.o strbuf.o fpconv.o && \
+    mv cjson.so /home/we/dust/code/o-o-o/lib/cjson.so
+
 COPY ["jackdrc", "/etc/jackdrc"]
 COPY ["norns.yaml", "/home/we/.tmuxp/norns.yaml"]
 COPY ["tmux.conf", "/home/we/.tmux.conf"]
