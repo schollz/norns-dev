@@ -139,7 +139,7 @@ I recommend running the `tehn/earthsea.lua` script to test the grid functionalit
 
 ### Get a server
 
-Get a Docker droplet or similar and [install Docker](https://docs.docker.com/engine/install/ubuntu/).
+Get a Docker droplet or similar.
 
 ### Get a domain name
 
@@ -182,10 +182,31 @@ systemctl restart caddy
 
 ### Setup and run norns
 
+First install pre-requisites, like Docker:
+
+```
+sudo apt install -y liblua5.3-dev make apt-transport-https ca-certificates curl gnupg lsb-release
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+```
+
+Setup swap (optional):
+
+```
+sudo fallocate -l 2G /swapfile
+sudo dd if=/dev/zero of=/swapfile bs=1024 count=2097152
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+```
+
 First make the base image (takes awhile):
 
 ```
-sudo apt install -y make
 git clone https://github.com/schollz/norns-dev
 cd ~/norns-dev
 git checkout play
