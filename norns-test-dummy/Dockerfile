@@ -75,6 +75,7 @@ COPY ["oled-server.go", "/home/we/oled-server.go"]
 COPY ["go.mod", "/home/we/go.mod"]
 COPY ["go.sum", "/home/we/go.sum"]
 COPY ["static", "/home/we/static"]
+COPY repl-endpoints.json /home/we/maiden/app/build/repl-endpoints.json
 
 COPY icecast.xml /etc/icecast2/icecast.xml
 COPY darkice.cfg /etc/darkice.cfg
