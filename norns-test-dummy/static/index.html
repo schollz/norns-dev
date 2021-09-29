@@ -403,7 +403,7 @@ image-rendering: crisp-edges;
                 dif = (v - value);
                 value = v;
                 console.log(`v: ${v}, value: ${value}, dif: ${dif}`);
-                if (Math.abs(dif) > 50 || Math.abs(dif) < 0.05) {
+                if (Math.abs(dif) > 50 || Math.abs(dif) < 0.1) {
                     // last_time = currentTime()
                     return
                 }
@@ -411,7 +411,7 @@ image-rendering: crisp-edges;
 
                 var multiplier = 1;
                 if (Math.abs(dif) > 5) {
-                    multiplier = 3;
+                    multiplier = Math.floor(Math.abs(dif));
                 } else if (Math.abs(dif) > 3) {
                     multiplier = 2;
                 }

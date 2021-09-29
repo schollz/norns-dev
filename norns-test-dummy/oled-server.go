@@ -97,7 +97,7 @@ func handleWebsocket(w http.ResponseWriter, r *http.Request) (err error) {
 		return errUpgrade
 	}
 	defer c.Close()
-
+	gettingImage := false
 	for {
 		var p Message
 		err := c.ReadJSON(&p)
@@ -118,6 +118,10 @@ func handleWebsocket(w http.ResponseWriter, r *http.Request) (err error) {
 			oscClient.Send(msg)
 		} else if p.Kind == "img" {
 			go func() {
+				if gettingImage {
+					return
+				}
+				gettingImage = true
 				time.Sleep(25 * time.Millisecond)
 				var b bytes.Buffer
 				displayToPNG(context.Background(), windowName, windowID, bufio.NewWriter(&b))
