@@ -135,10 +135,34 @@ I recommend running the `tehn/earthsea.lua` script to test the grid functionalit
 
 [`tmux`]: https://github.com/tmux/tmux
 
-## Reverse proxy from public internet
+## Norns in the cloud instructions
+
+### Get a domain name
+
+Free domain names are at [duckdns](http://www.duckdns.org/).
+
+I'll assume your domain name is `yourwebsite.com`.
+
+
+### Get a server
+
+Get a Docker droplet or similar and [install Docker](https://docs.docker.com/engine/install/ubuntu/).
+
+
+### Setup reverse proxy
+
+```
+sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo tee /etc/apt/trusted.gpg.d/caddy-stable.asc
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+sudo apt update
+sudo apt install caddy
+```
+
+And then copy the following to `/etc/caddy/Caddyfile`:
 
 ```Caddyfile
-play.norns.online {
+yourwebsite.com {
         reverse_proxy localhost:8889
         reverse_proxy /radio.mp3 localhost:8000
         reverse_proxy /maiden/* localhost:5000
@@ -150,3 +174,32 @@ play.norns.online {
         reverse_proxy /supercollider localhost:5556
 }
 ```
+
+### Setup and run norns
+
+First make the base image (takes awhile):
+
+```
+sudo apt install make
+git clone https://github.com/schollz/norns-dev
+cd ~/norns-dev/norns-dev
+make build
+```
+
+Then to make the running image:
+
+```
+cd ~/norns-dev/norns-test-dummy
+```
+
+Edit the `repl-endpoints.json` and change `play.norns.online` to your domain name `yourwebsite.com`.
+
+Now build and run (first time takes awhile):
+
+```
+make build
+make pub # or `make run` for terminals
+```
+
+Thats it! Now open your `yourwebsite.com`.
+
