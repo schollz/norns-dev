@@ -45,6 +45,7 @@ dust:
 	chmod +x mx.samples.sh
 	cd dust/audio/mx.samples && ../../../mx.samples.sh
 	cd dust/code && \
+	git clone https://github.com/markwheeler/molly_the_poly && \
 	git clone https://github.com/tehn/awake.git && \
     git clone https://github.com/jaseknighter/flora.git  && \
     git clone https://github.com/synthetiv/euclidigons.git && \
