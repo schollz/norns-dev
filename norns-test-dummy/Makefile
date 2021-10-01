@@ -23,11 +23,27 @@ run: dust
 		samdoshi/norns-test-dummy
 
 dust:
-	mkdir -p dust && \
-	mkdir -p dust/data && \
-	mkdir -p dust/audio && \
-	mkdir -p dust/audio/tape && \
-	mkdir -p dust/code && \
+	mkdir -p dust
+	mkdir -p dust/data
+	mkdir -p dust/audio 
+	mkdir -p dust/audio/tape
+	mkdir -p dust/code
+	mkdir -p dust/audio/mx.samples 
+	cd dust/audio/mx.samples && \
+	wget https://github.com/schollz/mx.samples/releases/download/samples/alto_sax_choir.zip && \
+	wget https://github.com/schollz/mx.samples/releases/download/samples/drums_violin.zip && \
+	wget https://github.com/schollz/mx.samples/releases/download/samples/fender_rhodes.zip && \
+	wget https://github.com/schollz/mx.samples/releases/download/samples/gentle_vibes.zip && \
+	wget https://github.com/schollz/mx.samples/releases/download/samples/ghost_piano.zip && \
+	wget https://github.com/schollz/mx.samples/releases/download/samples/music_box.zip && \
+	wget https://github.com/schollz/mx.samples/releases/download/samples/steinway_model_b.zip && \
+	wget https://github.com/schollz/mx.samples/releases/download/samples/kalimba.zip && \
+	wget https://github.com/schollz/mx.samples/releases/download/samples/tatak_piano.zip && \
+	wget https://github.com/schollz/mx.samples/releases/download/samples/fender_strato_vib.zip && \
+	wget https://github.com/schollz/mx.samples/releases/download/samples/music_box.zip && \
+	wget https://github.com/schollz/mx.samples/releases/download/samples/discord_choir.zip
+	chmod +x mx.samples.sh
+	cd dust/audio/mx.samples && ../../../mx.samples.sh
 	cd dust/code && \
 	git clone https://github.com/tehn/awake.git && \
     git clone https://github.com/jaseknighter/flora.git  && \
@@ -39,6 +55,26 @@ dust:
     git clone https://github.com/tomwaters/spirals.git && \
     git clone https://github.com/tomwaters/breakthrough.git && \
     git clone https://github.com/northern-information/dronecaster.git  && \
+    git clone https://github.com/schollz/synthy.git && \
+    git clone https://github.com/schollz/amen.git && \
+    git clone https://github.com/schollz/mx.samples.git && \
+    git clone https://github.com/schollz/supertonic.git && \
+    git clone https://github.com/schollz/downtown.git && \
+    git clone https://github.com/jlmitch5/m18s && \
+    git clone https://github.com/northern-information/bakeneko && \
+    git clone https://github.com/pangrus/hachi && \
+    git clone https://github.com/21echoes/cyrene && \
+    git clone https://github.com/robmckinnon/pitfalls && \
+    git clone https://github.com/aidanreilly/saws && \
+    git clone https://github.com/northern-information/fiahod && \
+    git clone --recurse-submodules https://github.com/yotamorimoto/norns_grd grd && \
+    git clone https://github.com/markwheeler/arp_index && \
+    git clone https://github.com/linusschrab/less_concepts_3 && \
+    git clone https://github.com/cfdrake/twine && \
+    git clone https://github.com/aidanreilly/squares && \
+    git clone https://github.com/aidanreilly/bp_noise && \
+    git clone https://github.com/frederickk/stjoernuithrott.git && \
+    git clone https://github.com/speakerdamage/here-there.git && \
     git clone https://github.com/schollz/o-o-o.git
 	rm -rf lua-cjson
 	git clone --depth 1 https://github.com/mpx/lua-cjson.git
@@ -48,7 +84,6 @@ dust:
 	cd lua-cjson && cc  -shared -o cjson.so lua_cjson.o strbuf.o fpconv.o
 	mv lua-cjson/cjson.so dust/code/o-o-o/lib/
 	rm -rf lua-cjson
-
 
 pub: dust
 	docker run -d --rm -it \
