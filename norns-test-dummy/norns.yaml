@@ -9,7 +9,8 @@ windows:
           #   docker cp norns-test-dummy:/tmp/Xvfb_screen0 . && xwud -in Xvfb_screen0
           - Xvfb :0 -screen 0 512x256x16 -fbdir /tmp &
           # Serve static display
-          - /usr/local/go/bin/go run /home/we/oled-server.go -window-name 'matron' -port 8889
+          - cd /home/we/
+          - /usr/local/go/bin/go run /home/we/oled-server2.go -window-name 'matron' -port 8889
           # Connect vnc server to the display
           - export DISPLAY=:0
           - x11vnc -forever
@@ -26,6 +27,14 @@ windows:
           - export DISPLAY=:0
           - cd /home/we/norns
           - ./matron.sh
+      - shell_command:
+          - sleep 4
+          - icecast2 -c /etc/icecast2/icecast.xml &
+          - sleep 6
+          - darkice -c /etc/darkice.cfg &
+          - sleep 8
+          - jack_connect crone:output_1 darkice:left
+          - jack_connect crone:output_2 darkice:right
       - shell_command:
           - cd /home/we/maiden
           - sleep 6

@@ -13,6 +13,7 @@ run:
 		-p 5556:5556 \
 		-p 5900:5900 \
 		-p 8889:8889 \
+		-p 8000:8000 \
 		-p 10111:10111/udp \
 		--name norns-test-dummy \
 		wwinder/norns-test-dummy

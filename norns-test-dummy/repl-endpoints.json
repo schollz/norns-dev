@@ -1,0 +1,4 @@
+{
+    "matron": "ws://localhost:5555",
+    "supercollider": "ws://localhost:5556"
+}
