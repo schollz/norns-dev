@@ -10,6 +10,9 @@ ENV \
 RUN groupadd we -g 1000 && \
     useradd we -g 1000 -u 1000 -m -s /bin/bash
 
+#RUN apt-get update -q 
+#RUN apt-get install -y vorbis-tools 
+
 RUN apt-get update -q && \
     apt-get install -qy --no-install-recommends \
             python3-pip \

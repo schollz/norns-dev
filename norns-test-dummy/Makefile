@@ -20,13 +20,19 @@ run:
 		--name norns-test-dummy \
 		wwinder/norns-test-dummy
 
-radio: code/pirate-radio
+radio: code/pirate-radio code/pirate-radio/dust2dust
 	echo "making"
 
 code/pirate-radio: cjson.so
 	mkdir -p code
 	git clone https://github.com/schollz/pirate-radio code/pirate-radio
 	cp cjson.so code/pirate-radio/lib/cjson.so
+
+code/pirate-radio/dust2dust:
+	git clone --depth 1 https://github.com/schollz/dust2dust 
+	cd dust2dust && go build -v 
+	mv dust2dust/dust2dust code/pirate-radio/
+	rm -rf dust2dust
 
 cjson.so:
 	rm -rf lua-cjson
