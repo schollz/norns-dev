@@ -20,28 +20,23 @@ run:
 		--name norns-test-dummy \
 		wwinder/norns-test-dummy
 
-radio: code/pirate-radio code/pirate-radio/dust2dust
-	echo "making"
-
-code/pirate-radio: cjson.so
+radio:
 	mkdir -p code
+	rm -rf code/pirate-radio
 	git clone https://github.com/schollz/pirate-radio code/pirate-radio
-	cp cjson.so code/pirate-radio/lib/cjson.so
-
-code/pirate-radio/dust2dust:
+	echo "dust2dust"
 	git clone --depth 1 https://github.com/schollz/dust2dust 
 	cd dust2dust && go build -v 
 	mv dust2dust/dust2dust code/pirate-radio/
 	rm -rf dust2dust
-
-cjson.so:
+	echo "cjson.so"
 	rm -rf lua-cjson
 	git clone --depth 1 https://github.com/mpx/lua-cjson.git
 	cd lua-cjson && cc -c -O3 -Wall -pedantic -DNDEBUG  -I/usr/include/lua5.3 -fpic -o lua_cjson.o lua_cjson.c
 	cd lua-cjson && cc -c -O3 -Wall -pedantic -DNDEBUG  -I/usr/include/lua5.3 -fpic -o strbuf.o strbuf.c
 	cd lua-cjson && cc -c -O3 -Wall -pedantic -DNDEBUG  -I/usr/include/lua5.3 -fpic -o fpconv.o fpconv.c
 	cd lua-cjson && cc  -shared -o cjson.so lua_cjson.o strbuf.o fpconv.o
-	mv lua-cjson/cjson.so .
+	cp lua-cjson/cjson.so code/pirate-radio/lib/cjson.so
 	rm -rf lua-cjson
 
 run-audio:

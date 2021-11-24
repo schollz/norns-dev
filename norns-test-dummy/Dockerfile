@@ -29,9 +29,9 @@ RUN apt-get update -q && \
             x11-apps \
             icecast2 \
             darkice \
-            imagemagick && \
-            vorbis-tools && \
-            ffmpeg && \
+            imagemagick \
+            vorbis-tools \
+            ffmpeg \
             espeak && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \

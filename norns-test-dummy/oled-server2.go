@@ -60,8 +60,8 @@ func handle(w http.ResponseWriter, r *http.Request) (err error) {
 	} else if r.URL.Path == "/ws" {
 		err = handleWebsocket(w, r)
 		log.Debugf("ws: %w", err)
-		log.Debug(err.Error())
 		if err != nil {
+			log.Error(err.Error())
 			err = nil
 		}
 	} else {
