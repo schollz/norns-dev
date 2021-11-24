@@ -11,7 +11,7 @@ windows:
           # Serve static display
           - cd /home/we/
           # - /home/we/oled-server -window-name 'matron' -port 8889
-          - go run oled-server2.go -window-name 'matron' -port 8889
+          - /usr/local/go/bin/go run oled-server2.go -window-name 'matron' -port 8889
           # Connect vnc server to the display
           - export DISPLAY=:0
           - x11vnc -forever

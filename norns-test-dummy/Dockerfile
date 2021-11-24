@@ -27,6 +27,9 @@ RUN apt-get update -q && \
             icecast2 \
             darkice \
             imagemagick && \
+            vorbis-tools && \
+            ffmpeg && \
+            espeak && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     pip3 install tmuxp==1.4.0
@@ -71,6 +74,7 @@ COPY ["oled-server.go", "/home/we/oled-server.go"]
 COPY ["oled-server2.go", "/home/we/oled-server2.go"]
 COPY ["go.mod", "/home/we/go.mod"]
 COPY ["go.sum", "/home/we/go.sum"]
+COPY ["vendor", "/home/we/vendor"]
 COPY ["static", "/home/we/static"]
 COPY repl-endpoints.json /home/we/maiden/app/build/repl-endpoints.json
 COPY icecast.xml /etc/icecast2/icecast.xml

@@ -20,6 +20,24 @@ run:
 		--name norns-test-dummy \
 		wwinder/norns-test-dummy
 
+radio: code/pirate-radio
+	echo "making"
+
+code/pirate-radio: cjson.so
+	mkdir -p code
+	git clone https://github.com/schollz/pirate-radio code/pirate-radio
+	cp cjson.so code/pirate-radio/lib/cjson.so
+
+cjson.so:
+	rm -rf lua-cjson
+	git clone --depth 1 https://github.com/mpx/lua-cjson.git
+	cd lua-cjson && cc -c -O3 -Wall -pedantic -DNDEBUG  -I/usr/include/lua5.3 -fpic -o lua_cjson.o lua_cjson.c
+	cd lua-cjson && cc -c -O3 -Wall -pedantic -DNDEBUG  -I/usr/include/lua5.3 -fpic -o strbuf.o strbuf.c
+	cd lua-cjson && cc -c -O3 -Wall -pedantic -DNDEBUG  -I/usr/include/lua5.3 -fpic -o fpconv.o fpconv.c
+	cd lua-cjson && cc  -shared -o cjson.so lua_cjson.o strbuf.o fpconv.o
+	mv lua-cjson/cjson.so .
+	rm -rf lua-cjson
+
 run-audio:
 	docker run --rm -it \
 		--device /dev/snd \
