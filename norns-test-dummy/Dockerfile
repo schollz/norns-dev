@@ -60,40 +60,8 @@ RUN mkdir -p /home/we/.local/share/SuperCollider/Extensions/norns && \
     echo | sclang
 
 # DUST - Configure maiden data directory.
-RUN /home/we/maiden/project-setup.sh && \
-    mkdir -p dust/code && \
-    cd dust/code && \
-    # TODO: More scripts - which ones??
-    git clone https://github.com/tehn/awake.git && \
-    git clone https://github.com/p3r7/3d.git && \
-    git clone https://github.com/northern-information/dronecaster.git && \
-    git clone https://github.com/justmat/showers.git && \
-    git clone https://github.com/distropolis/pixels.git && \
-    git clone https://github.com/ambalek/raindrops.git && \
-    git clone https://github.com/tomwaters/spirals.git && \
-    git clone https://github.com/tomwaters/breakthrough.git && \
-    git clone https://github.com/jaseknighter/flora.git && \
-    git clone https://github.com/21echoes/cyrene && \
-    git clone https://github.com/schollz/synthy.git && \
-    git clone https://github.com/synthetiv/euclidigons.git && \
-    git clone https://github.com/schollz/supertonic.git && \
-    git clone https://github.com/schollz/downtown.git && \
-    git clone https://github.com/jlmitch5/m18s && \
-    git clone https://github.com/northern-information/bakeneko && \
-    git clone https://github.com/pangrus/hachi && \
-    git clone https://github.com/robmckinnon/pitfalls && \
-    git clone https://github.com/aidanreilly/saws && \
-    git clone https://github.com/northern-information/fiahod && \
-    git clone --recurse-submodules https://github.com/yotamorimoto/norns_grd grd && \
-    git clone https://github.com/markwheeler/arp_index && \
-    git clone https://github.com/linusschrab/less_concepts_3 && \
-    git clone https://github.com/cfdrake/twine && \
-    git clone https://github.com/aidanreilly/squares && \
-    git clone https://github.com/aidanreilly/bp_noise && \
-    git clone https://github.com/frederickk/stjoernuithrott.git && \
-    git clone https://github.com/speakerdamage/here-there.git && \
-    git clone https://github.com/schollz/o-o-o.git && \
-    git clone https://github.com/JakeCarter/circles.git
+RUN /home/we/maiden/project-setup.sh
+
 
 COPY ["jackdrc", "/etc/jackdrc"]
 COPY ["matronrc.lua", "/home/we/norns/matronrc.lua"]

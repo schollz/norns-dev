@@ -1,4 +1,4 @@
-module 1
+module oled-server
 
 go 1.17
 

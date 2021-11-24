@@ -10,7 +10,8 @@ windows:
           - Xvfb :0 -screen 0 512x256x16 -fbdir /tmp &
           # Serve static display
           - cd /home/we/
-          - /usr/local/go/bin/go run /home/we/oled-server2.go -window-name 'matron' -port 8889
+          # - /home/we/oled-server -window-name 'matron' -port 8889
+          - go run oled-server2.go -window-name 'matron' -port 8889
           # Connect vnc server to the display
           - export DISPLAY=:0
           - x11vnc -forever

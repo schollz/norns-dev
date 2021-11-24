@@ -15,6 +15,8 @@ run:
 		-p 8889:8889 \
 		-p 8000:8000 \
 		-p 10111:10111/udp \
+		-v ${PWD}/code:/home/we/dust/code \
+		-v ${PWD}/audio:/home/we/dust/audio \
 		--name norns-test-dummy \
 		wwinder/norns-test-dummy
 
