@@ -17,10 +17,12 @@ run:
 		-p 10111:10111/udp \
 		-v ${PWD}/code:/home/we/dust/code \
 		-v ${PWD}/audio:/home/we/dust/audio \
+		-v ${PWD}/data:/home/we/dust/data \
 		--name norns-test-dummy \
 		wwinder/norns-test-dummy
 
 pub:
+	docker container kill $(docker ps -q)
 	docker run -d --rm -it \
 		--cap-add=SYS_NICE \
 		--cap-add=SYS_PTRACE --security-opt seccomp=unconfined \
@@ -34,6 +36,7 @@ pub:
 		-p 10111:10111/udp \
 		-v ${PWD}/code:/home/we/dust/code \
 		-v ${PWD}/audio:/home/we/dust/audio \
+		-v ${PWD}/data:/home/we/dust/data \
 		--name norns-test-dummy \
 		wwinder/norns-test-dummy
 
