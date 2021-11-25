@@ -20,6 +20,23 @@ run:
 		--name norns-test-dummy \
 		wwinder/norns-test-dummy
 
+pub:
+	docker run -d --rm -it \
+		--cap-add=SYS_NICE \
+		--cap-add=SYS_PTRACE --security-opt seccomp=unconfined \
+		--ulimit rtprio=95 --ulimit memlock=-1 --shm-size=256m \
+		-p 5000:5000 \
+		-p 5555:5555 \
+		-p 5556:5556 \
+		-p 5900:5900 \
+		-p 8889:8889 \
+		-p 8000:8000 \
+		-p 10111:10111/udp \
+		-v ${PWD}/code:/home/we/dust/code \
+		-v ${PWD}/audio:/home/we/dust/audio \
+		--name norns-test-dummy \
+		wwinder/norns-test-dummy
+
 radio:
 	mkdir -p code
 	rm -rf code/pirate-radio

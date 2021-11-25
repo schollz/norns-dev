@@ -36,6 +36,7 @@ windows:
           - sleep 8
           - jack_connect crone:output_1 darkice:left
           - jack_connect crone:output_2 darkice:right
+          - echo "norns.script.load('code/pirate-radio/pirate-radio.lua')" | /home/we/websocat --protocol bus.sp.nanomsg.org ws://localhost:5555
       - shell_command:
           - cd /home/we/maiden
           - sleep 6

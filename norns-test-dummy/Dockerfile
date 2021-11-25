@@ -68,7 +68,9 @@ RUN mkdir -p /home/we/.local/share/SuperCollider/Extensions/norns && \
 # DUST - Configure maiden data directory.
 RUN /home/we/maiden/project-setup.sh
 
-
+RUN wget https://github.com/vi/websocat/releases/download/v1.9.0/websocat_linux64 && \
+    mv websocat_linux64 /home/we/websocat && \
+    chmod +x /home/we/websocat
 COPY ["jackdrc", "/etc/jackdrc"]
 COPY ["matronrc.lua", "/home/we/norns/matronrc.lua"]
 COPY ["norns.yaml", "/home/we/.tmuxp/norns.yaml"]
@@ -82,6 +84,5 @@ COPY ["static", "/home/we/static"]
 COPY repl-endpoints.json /home/we/maiden/app/build/repl-endpoints.json
 COPY icecast.xml /etc/icecast2/icecast.xml
 COPY darkice.cfg /etc/darkice.cfg
-
 
 CMD tmuxp load norns
